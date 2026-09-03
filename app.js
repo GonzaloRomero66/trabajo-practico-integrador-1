@@ -11,5 +11,5 @@ const port = process.env.PORT
 
 await sequelize.sync()
 app.listen(port, () => {
-    console.log("Tu base de datos esta en perfecto funcionamiento")
+    console.log(`Tu base de datos esta en perfecto funcionamiento en el puerto ${port}`)
 })
