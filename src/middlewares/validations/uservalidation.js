@@ -52,3 +52,17 @@ export const validationCreateUser = [
         .isIn(["user", "admin"])
         .withMessage("El role debe ser user o admin")
 ];
+export const validationId = [
+    param("id")
+        .isInt()
+        .withMessage("El ID debe ser un número entero")
+        .custom(async (id) => {
+            const user = await UserModel.findByPk(id);
+
+            if (!user) {
+                throw new Error("El usuario no existe");
+            }
+
+            return true;
+        })
+];
