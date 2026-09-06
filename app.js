@@ -2,6 +2,7 @@ import express  from 'express'
 import dotenv from 'dotenv'
 import { sequelize } from './src/config/database.js'
 
+dotenv.config()
 const app = express()
 app.use(express.json())
 
