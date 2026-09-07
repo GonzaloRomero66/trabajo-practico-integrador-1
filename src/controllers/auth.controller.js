@@ -80,3 +80,33 @@ export const login = async (req, res) => {
         });
     }
 };
+export const getProfile = async (req, res) => {
+    try {
+        const user = await UserModel.findByPk(req.user.id, {
+            include: {
+                model: ProfileModel,
+                as: "profile"
+            }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Usuario no encontrado"
+            });
+        }
+
+        return res.status(200).json({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role,
+            profile: user.profile
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error al obtener el perfil",
+            error: error.message
+        });
+    }
+};
