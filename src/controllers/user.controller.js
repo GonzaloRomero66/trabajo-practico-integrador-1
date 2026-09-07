@@ -4,10 +4,11 @@ import { hashPassword } from "../helpers/bcrypt.js";
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await UserModel.findAll({
+        const users = await UserModel.findAll({attributes: { exclude: ["password"] },
             include: {
                 model: ProfileModel,
                 as: "profile"
+            
             }
         });
 
@@ -26,7 +27,7 @@ export const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const user = await UserModel.findByPk(id, {
+        const user = await UserModel.findByPk(id, {attributes: { exclude: ["password"] },
             include: {
                 model: ProfileModel,
                 as: "profile"
@@ -64,7 +65,12 @@ export const createUser = async (req, res) => {
 
         return res.status(201).json({
             message: "Usuario creado correctamente",
-            user
+            user: {
+                 id: user.id,
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
         });
 
     } catch (error) {
@@ -103,7 +109,11 @@ export const updateUser = async (req, res) => {
 
         return res.status(200).json({
             message: "Usuario actualizado correctamente",
-            user
+            user: { 
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                role: user.role}
         });
 
     } catch (error) {
