@@ -21,6 +21,7 @@ export const getTags = async (req, res) => {
     }
 };
 
+
 export const getTagById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -32,12 +33,6 @@ export const getTagById = async (req, res) => {
             }
         });
 
-        if (!tag) {
-            return res.status(404).json({
-                message: "Etiqueta no encontrada"
-            });
-        }
-
         return res.status(200).json(tag);
 
     } catch (error) {
@@ -48,6 +43,7 @@ export const getTagById = async (req, res) => {
         });
     }
 };
+
 
 export const createTag = async (req, res) => {
     try {
@@ -71,18 +67,13 @@ export const createTag = async (req, res) => {
     }
 };
 
+
 export const updateTag = async (req, res) => {
     try {
         const { id } = req.params;
         const { name } = req.body;
 
         const tag = await TagModel.findByPk(id);
-
-        if (!tag) {
-            return res.status(404).json({
-                message: "Etiqueta no encontrada"
-            });
-        }
 
         await tag.update({
             name
@@ -102,17 +93,12 @@ export const updateTag = async (req, res) => {
     }
 };
 
+
 export const deleteTag = async (req, res) => {
     try {
         const { id } = req.params;
 
         const tag = await TagModel.findByPk(id);
-
-        if (!tag) {
-            return res.status(404).json({
-                message: "Etiqueta no encontrada"
-            });
-        }
 
         await tag.destroy();
 
