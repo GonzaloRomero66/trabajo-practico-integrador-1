@@ -1,10 +1,12 @@
 import express  from 'express'
 import dotenv from 'dotenv'
 import { sequelize } from './src/config/database.js'
+import cookieParser from "cookie-parser";
 
 dotenv.config()
 const app = express()
 app.use(express.json())
+app.use(cookieParser());
 
 
 console.log(process.env.PORT)
