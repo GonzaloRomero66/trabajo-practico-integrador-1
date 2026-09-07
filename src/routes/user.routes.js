@@ -11,6 +11,13 @@ import {
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { adminMiddleware } from "../middlewares/adminMiddleware.js";
 
+import {
+    validationCreateUser,
+    validationId
+} from "../middlewares/User.validation.js";
+
+import { validate } from "../middlewares/validate.js";
+
 const router = Router();
 
 router.get(
@@ -24,6 +31,8 @@ router.get(
     "/:id",
     authMiddleware,
     adminMiddleware,
+    validationId,
+    validate,
     getUserById
 );
 
@@ -31,6 +40,8 @@ router.post(
     "/",
     authMiddleware,
     adminMiddleware,
+    validationCreateUser,
+    validate,
     createUser
 );
 
@@ -38,6 +49,8 @@ router.put(
     "/:id",
     authMiddleware,
     adminMiddleware,
+    validationId,
+    validate,
     updateUser
 );
 
@@ -45,6 +58,8 @@ router.delete(
     "/:id",
     authMiddleware,
     adminMiddleware,
+    validationId,
+    validate,
     deleteUser
 );
 
