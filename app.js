@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import { sequelize } from './src/config/database.js'
 import cookieParser from "cookie-parser";
 import authRoutes from "./src/routes/auth.routes.js"
+import "./src/models/relations.js";
 dotenv.config()
 const app = express()
 app.use(express.json())
