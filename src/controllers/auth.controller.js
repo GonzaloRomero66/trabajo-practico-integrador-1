@@ -110,3 +110,37 @@ export const getProfile = async (req, res) => {
         });
     }
 };
+export const updateProfile = async (req, res) => {
+    try {
+        const { first_name, last_name, biography, avatar_url, birth_date } = req.body;
+
+        const profile = await ProfileModel.findOne({
+            where: { user_id: req.user.id }
+        });
+
+        if (!profile) {
+            return res.status(404).json({
+                message: "Perfil no encontrado"
+            });
+        }
+
+        await profile.update({
+            first_name,
+            last_name,
+            biography,
+            avatar_url,
+            birth_date
+        });
+
+        return res.status(200).json({
+            message: "Perfil actualizado correctamente",
+            profile
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error al actualizar el perfil",
+            error: error.message
+        });
+    }
+};
