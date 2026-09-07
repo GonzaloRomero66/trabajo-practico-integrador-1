@@ -32,6 +32,7 @@ export const getArticles = async (req, res) => {
     }
 };
 
+
 export const getArticleById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -50,12 +51,6 @@ export const getArticleById = async (req, res) => {
             ]
         });
 
-        if (!article) {
-            return res.status(404).json({
-                message: "Artículo no encontrado"
-            });
-        }
-
         return res.status(200).json(article);
 
     } catch (error) {
@@ -66,6 +61,7 @@ export const getArticleById = async (req, res) => {
         });
     }
 };
+
 
 export const getMyArticles = async (req, res) => {
     try {
@@ -89,6 +85,7 @@ export const getMyArticles = async (req, res) => {
         });
     }
 };
+
 
 export const getArticlesByUser = async (req, res) => {
     try {
@@ -115,6 +112,7 @@ export const getArticlesByUser = async (req, res) => {
         });
     }
 };
+
 
 export const createArticle = async (req, res) => {
     try {
@@ -147,17 +145,12 @@ export const createArticle = async (req, res) => {
     }
 };
 
+
 export const updateArticle = async (req, res) => {
     try {
         const { id } = req.params;
 
         const article = await ArticleModel.findByPk(id);
-
-        if (!article) {
-            return res.status(404).json({
-                message: "Artículo no encontrado"
-            });
-        }
 
         if (
             req.user.role !== "admin" &&
@@ -196,17 +189,12 @@ export const updateArticle = async (req, res) => {
     }
 };
 
+
 export const deleteArticle = async (req, res) => {
     try {
         const { id } = req.params;
 
         const article = await ArticleModel.findByPk(id);
-
-        if (!article) {
-            return res.status(404).json({
-                message: "Artículo no encontrado"
-            });
-        }
 
         if (
             req.user.role !== "admin" &&
